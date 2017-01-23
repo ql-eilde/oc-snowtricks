@@ -1,0 +1,16 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}Créer un trick - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <h1>Créer un nouveau trick</h1>
+
+    {{ include("STPlatformBundle:Trick:form.html.twig") }}
+
+    <p>
+        <a href="{{ path('st_platform_homepage') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à l'accueil
+        </a>
+    </p>
+{% endblock %}

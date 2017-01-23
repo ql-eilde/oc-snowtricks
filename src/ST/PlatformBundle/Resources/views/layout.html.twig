@@ -1,0 +1,14 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div>
+        {# On affiche tous les messages flash dont le nom est « info » #}
+        {% for message in app.session.flashbag.get('info') %}
+            <p>Message flash : {{ message }}</p>
+        {% endfor %}
+    </div>
+    {% block stplatform_body %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <h1>Liste des tricks</h1>
+
+    <ul>
+        {% for trick in listTricks %}
+            <li>
+                <a href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}">
+                    {{ trick.name }}
+                </a>
+            </li>
+        {% else %}
+            <li>Pas (encore !) de tricks</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
