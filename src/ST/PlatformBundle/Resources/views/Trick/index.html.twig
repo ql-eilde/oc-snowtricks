@@ -11,6 +11,9 @@
                 <a href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}">
                     {{ trick.name }}
                 </a>
+                {# if is_granted('ROLE_USER') #}
+                    {# icone stylo pour edition #}
+                    {# icone corbeille pour suppression #}
             </li>
         {% else %}
             <li>Pas (encore !) de tricks</li>

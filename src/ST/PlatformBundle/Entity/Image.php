@@ -4,6 +4,7 @@ namespace ST\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -43,6 +44,9 @@ class Image
      */
     private $trick;
 
+    /**
+     * @Assert\Image()
+     */
     private $file;
 
     private $tempFilename;

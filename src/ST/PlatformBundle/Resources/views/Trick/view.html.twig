@@ -13,16 +13,21 @@
         {{ trick.description }}
     </div>
 
-    <div>
-
-    </div>
     {# liste photos #}
     {# liste vidéos #}
+    {# liste commentaires #}
+
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <div class="well">
+            {{ form(form) }}
+            {# form ajout commentaire #}
+        </div>
+    {% endif %}
+
     <p>
         <a href="{{ path('st_platform_homepage') }}" class="btn btn-default">
             <i class="glyphicon glyphicon-chevron-left"></i>
             Retour à la liste
         </a>
     </p>
-    {# espace de discussion "commentaires" #}
 {% endblock %}

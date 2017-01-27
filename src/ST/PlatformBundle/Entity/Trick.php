@@ -5,12 +5,15 @@ namespace ST\PlatformBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trick
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="ST\PlatformBundle\Repository\TrickRepository")
+ * @UniqueEntity(fields="name", message="Ce trick existe déjà.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Trick
@@ -27,7 +30,7 @@ class Trick
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
@@ -35,6 +38,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -57,13 +61,21 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity="ST\PlatformBundle\Entity\Image", mappedBy="trick", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $images;
 
     /**
      * @ORM\OneToMany(targetEntity="ST\PlatformBundle\Entity\Video", mappedBy="trick", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $videos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ST\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * @var \DateTime
@@ -82,6 +94,7 @@ class Trick
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
@@ -356,5 +369,29 @@ class Trick
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ST\UserBundle\Entity\User $user
+     *
+     * @return Trick
+     */
+    public function setUser(\ST\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ST\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

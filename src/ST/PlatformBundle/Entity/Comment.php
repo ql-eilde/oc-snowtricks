@@ -35,6 +35,12 @@ class Comment
     private $trick;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ST\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -126,5 +132,29 @@ class Comment
     public function getTrick()
     {
         return $this->trick;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ST\UserBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\ST\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ST\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

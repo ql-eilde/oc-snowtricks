@@ -1,19 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: quentinleilde
- * Date: 1/15/17
- * Time: 2:19 PM
- */
 
 namespace ST\PlatformBundle\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use ST\PlatformBundle\Entity\Comment;
 use ST\PlatformBundle\Entity\Trick;
+use ST\PlatformBundle\Form\CommentType;
 use ST\PlatformBundle\Form\TrickType;
 use ST\PlatformBundle\Form\TrickEditType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends Controller
 {
@@ -24,23 +20,47 @@ class TrickController extends Controller
         return $this->render('STPlatformBundle:Trick:index.html.twig', array('listTricks' => $listTricks));
     }
 
-    public function viewAction($id){
+    public function viewAction(Request $request, $id, $slug){
         $em = $this->getDoctrine()->getManager();
 
         $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
 
         $listComments = $em->getRepository('STPlatformBundle:Comment')->findBy(array('trick' => $trick));
         $listImages = $em->getRepository('STPlatformBundle:Image')->findBy(array('trick' => $trick));
+        $listVideos = $em->getRepository('STPlatformBundle:Video')->findBy(array('trick' => $trick));
+
+        // Ajout commentaire
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        if($request->isMethod('POST') && $comment->setTrick($trick) && $comment->setUser($this->getUser()) && $form->handleRequest($request)->isValid()){
+            $em->persist($comment);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Votre commentaire a bien été ajouté.');
+
+            return $this->redirectToRoute('st_platform_view', array(
+                'id' => $id,
+                'slug' => $slug,
+            ));
+        }
 
         return $this->render('STPlatformBundle:Trick:view.html.twig', array(
             'trick' => $trick,
             'listComments' => $listComments,
             'listImages' => $listImages,
+            'listVideos' => $listVideos,
+            'form' => $form->createView(),
             ));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function addAction(Request $request){
         $trick = new Trick();
+        $user = $this->getUser();
+        $trick->setUser($user);
         $form = $this->createForm(TrickType::class, $trick);
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
@@ -56,6 +76,9 @@ class TrickController extends Controller
         return $this->render('STPlatformBundle:Trick:add.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function editAction(Request $request, $id, $slug){
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
