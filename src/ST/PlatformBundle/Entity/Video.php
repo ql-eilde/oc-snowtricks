@@ -26,7 +26,7 @@ class Video
      * @var string
      *
      * @ORM\Column(name="embed_code", type="text")
-     * @Assert\Regex(pattern="/^<iframe[^><,\\\(\)\[\]\{\}]+><\/iframe>$/", message="Votre code embed n'est pas valide")
+     * @Assert\Regex(pattern="/^<iframe[^><,\\\(\)\[\]\{\}]+><\/iframe>$/", message="Votre code embed n'est pas valide, il doit contenir uniquement un code iframe.")
      */
     private $embedCode;
 

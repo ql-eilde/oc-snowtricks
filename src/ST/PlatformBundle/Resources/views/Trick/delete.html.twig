@@ -1,0 +1,18 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}Supprimer un trick - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <h1>Supprimer un trick</h1>
+
+    <p>Êtes-vous certain de vouloir supprimer le trick "{{ trick.name }}" ?</p>
+
+    <form action="{{ path('st_platform_delete', {'id': trick.id, 'slug': trick.slug}) }}" method="post">
+        <a href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour au trick
+        </a>
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}

@@ -7,7 +7,7 @@ st_platform_view:
     defaults: { _controller: STPlatformBundle:Trick:view }
     requirements:
         id: \d+
-        slug: '[a-z\-]+'
+        slug: '[a-z0-9\-]+'
 
 st_platform_add:
     path: /trick/add
@@ -18,11 +18,11 @@ st_platform_edit:
     defaults: { _controller: STPlatformBundle:Trick:edit }
     requirements:
         id: \d+
-        slug: '[a-z\-]+'
+        slug: '[a-z0-9\-]+'
 
 st_platform_delete:
     path: /trick/{id}/{slug}/delete
     defaults: { _controller: STPlatformBundle:Trick:delete }
     requirements:
         id: \d+
-        slug: '[a-z\-]+'
+        slug: '[a-z0-9\-]+'

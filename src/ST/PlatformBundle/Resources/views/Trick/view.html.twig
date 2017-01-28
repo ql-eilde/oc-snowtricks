@@ -9,18 +9,41 @@
     <h1>{{ trick.name }}</h1>
     <p>Groupe : {{ trick.trickgroup.name }}</p>
 
-    <div class="well">
+    <div class="trick-description">
         {{ trick.description }}
     </div>
 
     {# liste photos #}
-    {# liste vidéos #}
-    {# liste commentaires #}
+    <div class="trick-images">
+        <ul>
+        {% for img in listImages %}
+            <li><img src="../../../../web/uploads/trick_img/{{ img.imageFile.fileName }}" alt="{{ img.imageName }}"></li>
+        {% endfor %}
+        </ul>
+    </div>
 
+    {# liste vidéos #}
+    <div class="trick-videos">
+        <ul>
+            {% for vid in listVideos %}
+                <li>{{ vid.embedCode|raw }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {# liste commentaires #}
+    <div class="trick-comments">
+        <ul>
+            {% for com in listComments %}
+                <li>{{ com.content }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {# form ajout commentaire si user connecté #}
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div class="well">
             {{ form(form) }}
-            {# form ajout commentaire #}
         </div>
     {% endif %}
 

@@ -29,7 +29,6 @@ class TrickController extends Controller
         $listImages = $em->getRepository('STPlatformBundle:Image')->findBy(array('trick' => $trick));
         $listVideos = $em->getRepository('STPlatformBundle:Video')->findBy(array('trick' => $trick));
 
-        // Ajout commentaire
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -98,5 +97,28 @@ class TrickController extends Controller
         }
 
         return $this->render('STPlatformBundle:Trick:edit.html.twig', array('form' => $form->createView(), 'trick' => $trick));
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function deleteAction(Request $request, Trick $trick){
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->get('form.factory')->create();
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $em->remove($trick);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', "Le trick a bien été supprimé.");
+
+            return $this->redirectToRoute('st_platform_homepage');
+        }
+
+        return $this->render('STPlatformBundle:Trick:delete.html.twig', array(
+            'trick' => $trick,
+            'form' => $form->createView(),
+        ));
     }
 }

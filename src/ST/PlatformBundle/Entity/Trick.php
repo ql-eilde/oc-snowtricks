@@ -55,7 +55,7 @@ class Trick
     private $trickgroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\PlatformBundle\Entity\Comment", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="ST\PlatformBundle\Entity\Comment", mappedBy="trick", cascade={"remove"})
      */
     private $comments;
 

@@ -15,7 +15,9 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('embedCode', TextareaType::class)
+            ->add('embedCode', TextareaType::class, array(
+                'label' => "Insérez un code iframe",
+            ))
         ;
     }
     

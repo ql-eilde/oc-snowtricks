@@ -16,9 +16,14 @@ class TrickEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, array(
+                'required' => false
+            ))
+            ->add('description', TextareaType::class, array(
+                'required' => false
+            ))
             ->add('trickgroup', EntityType::class, array(
+                'required' => false,
                 'class' => 'STPlatformBundle:TrickGroup',
                 'choice_label' => 'name',
             ))
@@ -29,7 +34,16 @@ class TrickEditType extends AbstractType
                 'required' => false,
                 'by_reference' => false
             ))
-            ->add('save', SubmitType::class);
+            ->add('videos', CollectionType::class, array(
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => false,
+                'by_reference' => false
+            ))
+            ->add('save', SubmitType::class, array(
+                'label' => "Mettre à jour"
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
