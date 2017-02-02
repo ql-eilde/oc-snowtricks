@@ -3,49 +3,126 @@
 {% block title %}{{ trick.name }} - {{ parent() }}{% endblock %}
 
 {% block stplatform_body %}
-    {#Si l’utilisateur est connecté, il pourra cliquer sur :
-    une petit icône en forme de stylo situé juste à côté du nom qui redirigera l’utilisateur vers un formulaire de modification de figure ;
-    une corbeille située juste à côté du nom pour supprimer la figure.#}
-    <h1>{{ trick.name }}</h1>
-    <p>Groupe : {{ trick.trickgroup.name }}</p>
+    <h1 class="text-center">{{ trick.name|capitalize }}</h1>
+    <table class="table">
+        <tr>
+            <td colspan="2" class="text-center">{{ trick.trickgroup.name }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p>Description :</p>
+                {{ trick.description }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
 
-    <div class="trick-description">
-        {{ trick.description }}
-    </div>
+                    {# Wrapper for slides #}
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img width="100%" src="../../../../web/uploads/trick_img/snowtricks.jpg" alt="Snowtricks">
+                            <div class="carousel-caption">
+                                <p>Cliquez sur les flèches pour voir les images</p>
+                            </div>
+                        </div>
+                        {% for img in listImages %}
+                            {% if img.imageName != null %}
+                                <div class="item">
+                                    <img width="100%" src="{{ img.imageFile.pathName }}" alt="{{ img.imageName }}" />
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
 
-    {# liste photos #}
-    <div class="trick-images">
-        <ul>
-        {% for img in listImages %}
-            <li><img src="../../../../web/uploads/trick_img/{{ img.imageFile.fileName }}" alt="{{ img.imageName }}"></li>
-        {% endfor %}
-        </ul>
-    </div>
+                    {# Controls #}
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="carousel-example-generic-videos" class="carousel slide" data-ride="carousel" data-interval="false">
 
-    {# liste vidéos #}
-    <div class="trick-videos">
-        <ul>
-            {% for vid in listVideos %}
-                <li>{{ vid.embedCode|raw }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+                    {# Wrapper for slides #}
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img width="100%" src="../../../../web/uploads/trick_img/default-video.jpg" alt="Snowtricks">
+                            <div class="carousel-caption">
+                                <p>Cliquez sur les flèches pour voir les vidéos</p>
+                            </div>
+                        </div>
+                        {% for vid in listVideos %}
+                            <div class="item">
+                                {{ vid.embedCode|raw }}
+                            </div>
+                        {% endfor %}
+                    </div>
 
-    {# liste commentaires #}
-    <div class="trick-comments">
-        <ul>
-            {% for com in listComments %}
-                <li>{{ com.content }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+                    {# Controls #}
+                    <a class="left carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-    {# form ajout commentaire si user connecté #}
-    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <div class="well">
-            {{ form(form) }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Espace de discussion</h2>
         </div>
-    {% endif %}
+        <div class="panel-body">
+            <div class="ajout-commentaire">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.content, "Ajouter un commentaire") }}
+                        {{ form_errors(form.content) }}
+                        {{ form_widget(form.content) }}
+                    </div>
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                {% endif %}
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th class="header-table-70">Commentaire</th>
+                        <th class="header-table-10">Photo</th>
+                        <th class="header-table-10">Auteur</th>
+                        <th class="header-table-10">Date</th>
+                    </tr>
+                    {% for com in listComments %}
+                        <tr>
+                            <td>{{ com.content }}</td>
+                            <td><img width="60px" src="{{ com.user.imageFile.pathName }}" alt="{{ com.user.username }}" class="img-responsive img-thumbnail"></td>
+                            <td>{{ com.user.firstName }} {{ com.user.lastName }}</td>
+                            <td>{{ com.createdAt|date('d/m/Y') }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Pas de commentaires</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 
     <p>
         <a href="{{ path('st_platform_homepage') }}" class="btn btn-default">

@@ -3,9 +3,14 @@
 {% block title %}Créer un trick - {{ parent() }}{% endblock %}
 
 {% block stplatform_body %}
-    <h1>Créer un nouveau trick</h1>
-
-    {{ include("STPlatformBundle:Trick:form.html.twig") }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">Créer un nouveau trick</h1>
+        </div>
+        <div class="panel-body">
+            {{ include("STPlatformBundle:Trick:form.html.twig") }}
+        </div>
+    </div>
 
     <p>
         <a href="{{ path('st_platform_homepage') }}" class="btn btn-default">

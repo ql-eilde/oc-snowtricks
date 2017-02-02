@@ -40,6 +40,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'bootstrap_3_layout.html.twig'
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -92,14 +93,14 @@ vich_uploader:
     db_driver: orm
     mappings:
         user_image:
-            uri_prefix: /uploads/user_img
+            uri_prefix: %kernel.root_dir%/../web/uploads/user_img
             upload_destination: '%kernel.root_dir%/../web/uploads/user_img'
             namer: vich_uploader.namer_uniqid
             inject_on_load: true
             delete_on_update: true
             delete_on_remove: true
         trick_image:
-            uri_prefix: /uploads/trick_img
+            uri_prefix: %kernel.root_dir%/../web/uploads/trick_img
             upload_destination: '%kernel.root_dir%/../web/uploads/trick_img'
             namer: vich_uploader.namer_uniqid
             inject_on_load: true

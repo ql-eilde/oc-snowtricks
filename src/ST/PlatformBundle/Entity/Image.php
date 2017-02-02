@@ -34,7 +34,18 @@ class Image
 
     /**
      * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
-     * @Assert\Image()
+     * @Assert\Image(
+     *     minWidth = 300,
+     *     minWidthMessage = "Votre image doit faire au moins 300px de largeur",
+     *     minHeight = 300,
+     *     minHeightMessage = "Votre image doit faire au moins 300px de hauteur",
+     *     maxWidth = 2000,
+     *     maxWidthMessage = "Votre image doit faire moins de 2000px de largeur",
+     *     maxHeight = 2000,
+     *     maxHeightMessage = "Votre image doit faire moins de 2000px de hauteur",
+     *     maxSize = "2M",
+     *     maxSizeMessage = "Votre image doit faire moins de 2Mo"
+     * )
      */
     private $imageFile;
 

@@ -9,6 +9,7 @@ use ST\PlatformBundle\Form\TrickType;
 use ST\PlatformBundle\Form\TrickEditType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends Controller
@@ -82,6 +83,8 @@ class TrickController extends Controller
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
 
+        $repo = $em->getRepository('STPlatformBundle:Image');
+
         if(!$trick){
             throw $this->createNotFoundException("Pas de trick trouvé avec l'id".$id);
         }
@@ -90,6 +93,7 @@ class TrickController extends Controller
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
             $em->flush();
+            $repo->removeImagesWithoutName($trick);
 
             $request->getSession()->getFlashBag()->add('info', 'Votre trick a bien été modifié.');
 

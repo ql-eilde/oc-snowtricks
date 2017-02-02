@@ -11,9 +11,15 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
-            ->add('first_name', TextType::class)
-            ->add('last_name', TextType::class)
-            ->add('imageFile', FileType::class)
+            ->add('first_name', TextType::class, array(
+                'label' => "Prénom"
+            ))
+            ->add('last_name', TextType::class, array(
+                'label' => "Nom"
+            ))
+            ->add('imageFile', FileType::class, array(
+                'label' => "Photo de profil"
+            ))
         ;
     }
 

@@ -39,7 +39,18 @@ class User extends BaseUser
 
     /**
      * @Vich\UploadableField(mapping="user_image", fileNameProperty="imageName")
-     * @Assert\Image()
+     * @Assert\Image(
+     *     minWidth = 100,
+     *     minWidthMessage = "Votre image doit faire au moins 100px de largeur",
+     *     minHeight = 100,
+     *     minHeightMessage = "Votre image doit faire au moins 100px de hauteur",
+     *     maxWidth = 500,
+     *     maxWidthMessage = "Votre image doit faire moins de 500px de largeur",
+     *     maxHeight = 500,
+     *     maxHeightMessage = "Votre image doit faire moins de 500px de hauteur",
+     *     maxSize = "1M",
+     *     maxSizeMessage = "Votre image doit faire moins de 1Mo",
+     * )
      */
     private $imageFile;
 

@@ -10,4 +10,16 @@ namespace ST\PlatformBundle\Repository;
  */
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function removeImagesWithoutName($trick){
+        $var = '';
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->delete()
+            ->where('a.trick = :trick')
+            ->andWhere('a.imageName = :var')
+            ->setParameter('trick', $trick)
+            ->setParameter('var', $var);
+
+        $qb->getQuery()->execute();
+    }
 }

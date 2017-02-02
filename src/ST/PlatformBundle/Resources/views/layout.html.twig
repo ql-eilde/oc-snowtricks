@@ -3,12 +3,14 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
-    <div>
-        {# On affiche tous les messages flash dont le nom est « info » #}
-        {% for message in app.session.flashbag.get('info') %}
-            <p>Message flash : {{ message }}</p>
-        {% endfor %}
-    </div>
+    {# On affiche tous les messages flash dont le nom est « info » #}
+    {% for message in app.session.flashbag.get('info') %}
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block stplatform_body %}
     {% endblock %}
 {% endblock %}

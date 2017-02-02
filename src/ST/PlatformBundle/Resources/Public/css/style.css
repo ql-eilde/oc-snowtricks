@@ -1,0 +1,104 @@
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    margin-top: 10px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+.trick-list-title{
+    text-align: center;
+}
+
+.trick-list {
+    width: 50%;
+    margin: auto;
+}
+
+.trick-list-link {
+    color: inherit;
+}
+
+.trick-list-link:hover, .trick-list-link:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+.trick-list-link-name {
+    font-size: 19px;
+    text-transform: capitalize;
+}
+
+#carousel-example-generic {
+    width: 50%;
+    margin: auto;
+}
+
+#carousel-example-generic-videos {
+    width: 50%;
+    margin: auto;
+}
+
+.header-table-70 {
+    width: 70%;
+}
+
+.header-table-10 {
+    width: 10%;
+}
+
+.ajout-commentaire {
+    margin-bottom: 10px;
+}
+
+.trick-video {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px){
+    #carousel-example-generic {
+        width: 100%;
+        margin: auto;
+    }
+    #carousel-example-generic-videos {
+        width: 100%;
+        margin: auto;
+    }
+}

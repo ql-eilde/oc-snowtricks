@@ -55,7 +55,9 @@ class Video
      */
     public function setEmbedCode($embedCode)
     {
-        $this->embedCode = $embedCode;
+        $iframe_width = preg_replace('/width="[0-9]+"/', 'width="100%"', $embedCode);
+        $iframe = preg_replace('/height="[0-9]+"/', 'height="315px"', $iframe_width);
+        $this->embedCode = $iframe;
 
         return $this;
     }
