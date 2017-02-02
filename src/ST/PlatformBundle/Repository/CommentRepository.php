@@ -10,4 +10,14 @@ namespace ST\PlatformBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getListComments($trick){
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->select('a')
+            ->where('a.trick = :trick')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('trick', $trick);
+
+        return $qb->getQuery();
+    }
 }

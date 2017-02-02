@@ -26,7 +26,16 @@ class TrickController extends Controller
 
         $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
 
-        $listComments = $em->getRepository('STPlatformBundle:Comment')->findBy(array('trick' => $trick));
+        $repo = $em->getRepository('STPlatformBundle:Comment');
+        $comments = $repo->getListComments($trick);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $comments,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         $listImages = $em->getRepository('STPlatformBundle:Image')->findBy(array('trick' => $trick));
         $listVideos = $em->getRepository('STPlatformBundle:Video')->findBy(array('trick' => $trick));
 
@@ -47,9 +56,9 @@ class TrickController extends Controller
 
         return $this->render('STPlatformBundle:Trick:view.html.twig', array(
             'trick' => $trick,
-            'listComments' => $listComments,
             'listImages' => $listImages,
             'listVideos' => $listVideos,
+            'pagination' => $pagination,
             'form' => $form->createView(),
             ));
     }

@@ -14,70 +14,82 @@
                 {{ trick.description }}
             </td>
         </tr>
-        <tr>
-            <td>
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+        {% if listImages == null %}
+            <tr>
+                <td>Aucune images</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
 
-                    {# Wrapper for slides #}
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img width="100%" src="../../../../web/uploads/trick_img/snowtricks.jpg" alt="Snowtricks">
-                            <div class="carousel-caption">
-                                <p>Cliquez sur les flèches pour voir les images</p>
-                            </div>
-                        </div>
-                        {% for img in listImages %}
-                            {% if img.imageName != null %}
-                                <div class="item">
-                                    <img width="100%" src="{{ img.imageFile.pathName }}" alt="{{ img.imageName }}" />
+                        {# Wrapper for slides #}
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img width="100%" src="../../../../web/uploads/trick_img/snowtricks.jpg" alt="Snowtricks">
+                                <div class="carousel-caption">
+                                    <p>Cliquez sur les flèches pour voir les images</p>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    {# Controls #}
-                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Précédent</span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Suivant</span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="carousel-example-generic-videos" class="carousel slide" data-ride="carousel" data-interval="false">
-
-                    {# Wrapper for slides #}
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <img width="100%" src="../../../../web/uploads/trick_img/default-video.jpg" alt="Snowtricks">
-                            <div class="carousel-caption">
-                                <p>Cliquez sur les flèches pour voir les vidéos</p>
                             </div>
+                            {% for img in listImages %}
+                                {% if img.imageName != null %}
+                                    <div class="item">
+                                        <img width="100%" src="{{ img.imageFile.pathName }}" alt="{{ img.imageName }}" />
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        {% for vid in listVideos %}
-                            <div class="item">
-                                {{ vid.embedCode|raw }}
-                            </div>
-                        {% endfor %}
-                    </div>
 
-                    {# Controls #}
-                    <a class="left carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Précédent</span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Suivant</span>
-                    </a>
-                </div>
-            </td>
-        </tr>
+                        {# Controls #}
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        {% if listVideos == null %}
+            <tr>
+                <td>Aucune vidéos</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+                    <div id="carousel-example-generic-videos" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                        {# Wrapper for slides #}
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img width="100%" src="../../../../web/uploads/trick_img/default-video.jpg" alt="Snowtricks">
+                                <div class="carousel-caption">
+                                    <p>Cliquez sur les flèches pour voir les vidéos</p>
+                                </div>
+                            </div>
+                            {% for vid in listVideos %}
+                                <div class="item">
+                                    {{ vid.embedCode|raw }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {# Controls #}
+                        <a class="left carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
     </table>
 
     <div class="panel panel-default">
@@ -107,7 +119,7 @@
                         <th class="header-table-10">Auteur</th>
                         <th class="header-table-10">Date</th>
                     </tr>
-                    {% for com in listComments %}
+                    {% for com in pagination %}
                         <tr>
                             <td>{{ com.content }}</td>
                             <td><img width="60px" src="{{ com.user.imageFile.pathName }}" alt="{{ com.user.username }}" class="img-responsive img-thumbnail"></td>
@@ -120,6 +132,9 @@
                         </tr>
                     {% endfor %}
                 </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
         </div>
     </div>
