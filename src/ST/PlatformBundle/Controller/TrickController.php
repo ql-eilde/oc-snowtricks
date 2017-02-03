@@ -9,7 +9,6 @@ use ST\PlatformBundle\Form\TrickType;
 use ST\PlatformBundle\Form\TrickEditType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends Controller

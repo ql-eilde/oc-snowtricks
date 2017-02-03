@@ -10,4 +10,15 @@ namespace ST\UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getGoodUser($username){
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->select('a')
+            ->where('a.username = :username')
+            ->setParameter('username', $username)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

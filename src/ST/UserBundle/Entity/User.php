@@ -28,17 +28,21 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $first_name;
 
     /**
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $last_name;
 
     /**
-     * @Vich\UploadableField(mapping="user_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="imageName", cascade={"remove"}, orphanRemoval=true)
      * @Assert\Image(
      *     minWidth = 100,
      *     minWidthMessage = "Votre image doit faire au moins 100px de largeur",
@@ -55,12 +59,12 @@ class User extends BaseUser
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 

@@ -10,4 +10,15 @@ namespace ST\PlatformBundle\Repository;
  */
 class TrickGroupRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getGoodGroup($group){
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->select('a')
+            ->where('a.name = :name')
+            ->setParameter('name', $group)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

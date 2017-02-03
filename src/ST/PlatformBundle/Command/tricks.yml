@@ -1,0 +1,59 @@
+trick1:
+    name: Mute
+    description: Saisie de la carre frontside de la planche entre les deux pieds avec la main avant.
+    trickgroup: Grab
+    username: admin
+
+trick2:
+    name: Sad
+    description: Saisie de la carre backside de la planche, entre les deux pieds, avec la main avant.
+    trickgroup: Grab
+    username: admin
+
+trick3:
+    name: Indy
+    description: Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière.
+    trickgroup: Grab
+    username: admin
+
+trick4:
+    name: Stalefish
+    description: Saisie de la carre backside de la planche entre les deux pieds avec la main arrière.
+    trickgroup: Grab
+    username: admin
+
+trick5:
+    name: Japan Air
+    description: Saisie de l'avant de la planche, avec la main avant, du côté de la carre frontside.
+    trickgroup: Grab
+    username: admin
+
+trick6:
+    name: Truck Driver
+    description: Saisie du carre avant et carre arrière avec chaque main (comme tenir un volant de voiture).
+    trickgroup: Grab
+    username: admin
+
+trick7:
+    name: 180
+    description: Rotation horizontale de 180 degrés soit un demi-tour.
+    trickgroup: Rotation
+    username: admin
+
+trick8:
+    name: 360
+    description: Rotation horizontale de 360 degrés, soit un tour complet.
+    trickgroup: Rotation
+    username: admin
+
+trick9:
+    name: Front Flip
+    description: Rotation verticale en avant.
+    trickgroup: Flip
+    username: admin
+
+trick10:
+    name: Nose Slide
+    description: Slide avec l'avant de la planche sur la barre.
+    trickgroup: Slide
+    username: admin

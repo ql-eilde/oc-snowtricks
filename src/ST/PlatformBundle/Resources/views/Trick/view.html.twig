@@ -26,7 +26,7 @@
                         {# Wrapper for slides #}
                         <div class="carousel-inner" role="listbox">
                             <div class="item active">
-                                <img width="100%" src="../../../../web/uploads/trick_img/snowtricks.jpg" alt="Snowtricks">
+                                <img width="100%" src="{{ asset('uploads/trick_img/snowtricks.jpg') }}" alt="Snowtricks">
                                 <div class="carousel-caption">
                                     <p>Cliquez sur les flèches pour voir les images</p>
                                 </div>
@@ -34,7 +34,7 @@
                             {% for img in listImages %}
                                 {% if img.imageName != null %}
                                     <div class="item">
-                                        <img width="100%" src="{{ img.imageFile.pathName }}" alt="{{ img.imageName }}" />
+                                        <img width="100%" src="{{ asset(vich_uploader_asset(img, 'imageFile')) }}" alt="{{ img.imageName }}" />
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -65,7 +65,7 @@
                         {# Wrapper for slides #}
                         <div class="carousel-inner" role="listbox">
                             <div class="item active">
-                                <img width="100%" src="../../../../web/uploads/trick_img/default-video.jpg" alt="Snowtricks">
+                                <img width="100%" src="{{ asset('uploads/trick_img/default-video.jpg') }}" alt="Snowtricks">
                                 <div class="carousel-caption">
                                     <p>Cliquez sur les flèches pour voir les vidéos</p>
                                 </div>
@@ -122,7 +122,13 @@
                     {% for com in pagination %}
                         <tr>
                             <td>{{ com.content }}</td>
-                            <td><img width="60px" src="{{ com.user.imageFile.pathName }}" alt="{{ com.user.username }}" class="img-responsive img-thumbnail"></td>
+                            <td>
+                                {% if com.user.imageName == null %}
+                                    Pas de photo
+                                {% else %}
+                                    <img width="60px" src="{{ asset(vich_uploader_asset(com.user, 'imageFile')) }}" alt="{{ com.user.username }}" class="img-responsive img-thumbnail">
+                                {% endif %}
+                            </td>
                             <td>{{ com.user.firstName }} {{ com.user.lastName }}</td>
                             <td>{{ com.createdAt|date('d/m/Y') }}</td>
                         </tr>
