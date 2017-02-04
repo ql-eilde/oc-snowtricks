@@ -17,6 +17,8 @@ Vous trouverez dans le répertoire `app/config/` le fichier `parameters.dist.yml
 Avec Composer bien évidemment :
 
     php composer.phar install
+    
+*Ne faites pas attention à l'exception qui va être levée concernant le fait qu'il n'y ai plus de fichier parameters.yml.dist*
 
 ## 4. Créez la base de données
 Si la base de données que vous avez renseignée dans l'étape 2 n'existe pas déjà, créez-la :
