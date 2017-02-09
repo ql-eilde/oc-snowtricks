@@ -3,10 +3,9 @@ st_platform_homepage:
     defaults: { _controller: STPlatformBundle:Trick:index }
 
 st_platform_view:
-    path: /trick/{id}/{slug}
+    path: /trick/{slug}
     defaults: { _controller: STPlatformBundle:Trick:view }
     requirements:
-        id: \d+
         slug: '[a-z0-9\-]+'
 
 st_platform_add:
@@ -14,15 +13,13 @@ st_platform_add:
     defaults: { _controller: STPlatformBundle:Trick:add }
 
 st_platform_edit:
-    path: /trick/{id}/{slug}/edit
+    path: /trick/{slug}/edit
     defaults: { _controller: STPlatformBundle:Trick:edit }
     requirements:
-        id: \d+
         slug: '[a-z0-9\-]+'
 
 st_platform_delete:
-    path: /trick/{id}/{slug}/delete
+    path: /trick/{slug}/delete
     defaults: { _controller: STPlatformBundle:Trick:delete }
     requirements:
-        id: \d+
         slug: '[a-z0-9\-]+'

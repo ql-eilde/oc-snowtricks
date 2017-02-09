@@ -29,7 +29,7 @@ class TrickGroup
     private $name;
 
     /**
-     * OneToMany(targetEntity="ST\PlatformBundle\Entity\Trick", mappedBy="trickgroup")
+     * @ORM\OneToMany(targetEntity="ST\PlatformBundle\Entity\Trick", mappedBy="trickgroup")
      */
     private $tricks;
 
@@ -65,5 +65,46 @@ class TrickGroup
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tricks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add trick
+     *
+     * @param \ST\PlatformBundle\Entity\Trick $trick
+     *
+     * @return TrickGroup
+     */
+    public function addTrick(\ST\PlatformBundle\Entity\Trick $trick)
+    {
+        $this->tricks[] = $trick;
+
+        return $this;
+    }
+
+    /**
+     * Remove trick
+     *
+     * @param \ST\PlatformBundle\Entity\Trick $trick
+     */
+    public function removeTrick(\ST\PlatformBundle\Entity\Trick $trick)
+    {
+        $this->tricks->removeElement($trick);
+    }
+
+    /**
+     * Get tricks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTricks()
+    {
+        return $this->tricks;
     }
 }

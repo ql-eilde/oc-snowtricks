@@ -20,13 +20,14 @@ class TrickController extends Controller
         return $this->render('STPlatformBundle:Trick:index.html.twig', array('listTricks' => $listTricks));
     }
 
-    public function viewAction(Request $request, $id, $slug){
+    public function viewAction(Request $request, Trick $trick){
+        if(!$trick){
+            throw $this->createNotFoundException("Pas de trick trouvé avec l'id ".$trick->getId());
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
-
-        $repo = $em->getRepository('STPlatformBundle:Comment');
-        $comments = $repo->getListComments($trick);
+        $comments = $em->getRepository('STPlatformBundle:Comment')->getListComments($trick);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -48,8 +49,7 @@ class TrickController extends Controller
             $request->getSession()->getFlashBag()->add('info', 'Votre commentaire a bien été ajouté.');
 
             return $this->redirectToRoute('st_platform_view', array(
-                'id' => $id,
-                'slug' => $slug,
+                'slug' => $trick->getSlug()
             ));
         }
 
@@ -87,25 +87,22 @@ class TrickController extends Controller
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function editAction(Request $request, $id, $slug){
-        $em = $this->getDoctrine()->getManager();
-        $trick = $em->getRepository('STPlatformBundle:Trick')->find($id);
-
-        $repo = $em->getRepository('STPlatformBundle:Image');
-
+    public function editAction(Request $request, Trick $trick){
         if(!$trick){
-            throw $this->createNotFoundException("Pas de trick trouvé avec l'id".$id);
+            throw $this->createNotFoundException("Pas de trick trouvé avec l'id ".$trick->getId());
         }
+
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(TrickEditType::class, $trick);
 
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
             $em->flush();
-            $repo->removeImagesWithoutName($trick);
+            $em->getRepository('STPlatformBundle:Image')->removeImagesWithoutName($trick);
 
             $request->getSession()->getFlashBag()->add('info', 'Votre trick a bien été modifié.');
 
-            return $this->redirectToRoute('st_platform_view', array('id' => $id, 'slug' => $slug));
+            return $this->redirectToRoute('st_platform_view', array('slug' => $trick->getSlug()));
         }
 
         return $this->render('STPlatformBundle:Trick:edit.html.twig', array('form' => $form->createView(), 'trick' => $trick));
@@ -115,6 +112,10 @@ class TrickController extends Controller
      * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request, Trick $trick){
+        if(!$trick){
+            throw $this->createNotFoundException("Pas de trick trouvé avec l'id ".$trick->getId());
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->get('form.factory')->create();

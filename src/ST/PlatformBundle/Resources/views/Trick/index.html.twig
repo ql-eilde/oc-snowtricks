@@ -17,30 +17,30 @@
                 {% for trick in listTricks %}
                     <li class="list-group-item text-center">
                         <p class="text-left">
-                            <a class="trick-list-link trick-list-link-name" href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}">{{ trick.name }}</a>
+                            <a class="trick-list-link trick-list-link-name" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">{{ trick.name }}</a>
                         </p>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <button type="button" class="btn btn-info btn-sm">
-                                <a class="trick-list-link" href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}">
+                                <a class="trick-list-link" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                     Afficher
                                 </a>
                             </button>
                             <button type="button" class="btn btn-default btn-sm">
-                                <a class="trick-list-link" href="{{ path('st_platform_edit', {'id': trick.id, 'slug': trick.slug}) }}">
+                                <a class="trick-list-link" href="{{ path('st_platform_edit', {'slug': trick.slug}) }}">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                     Modifier
                                 </a>
                             </button>
                             <button type="button" class="btn btn-danger btn-sm">
-                                <a class="trick-list-link" href="{{ path('st_platform_delete', {'id': trick.id, 'slug': trick.slug}) }}">
+                                <a class="trick-list-link" href="{{ path('st_platform_delete', {'slug': trick.slug}) }}">
                                     <span class="glyphicon glyphicon-trash"></span>
                                     Supprimer
                                 </a>
                             </button>
                         {% else %}
                             <button type="button" class="btn btn-info btn-sm">
-                                <a class="trick-list-link" href="{{ path('st_platform_view', {'id': trick.id, 'slug': trick.slug}) }}">
+                                <a class="trick-list-link" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                     Afficher
                                 </a>

@@ -32,7 +32,7 @@
                 <img width="15%" src="{{ asset(download_uri) }}" />
             {% endif %}
             {% if form.delete is defined %}
-                {{ form_row(form.delete) }}
+                {{ form_row(form.delete, {'attr': {'class': 'form-checkbox'}, 'label': 'Supprimer l\'image ?'}) }}
             {% endif %}
         </div>
     {% endspaceless %}
