@@ -25,7 +25,6 @@ Si la base de données que vous avez renseignée dans l'étape 2 n'existe pas d�
 
 Puis créez les tables correspondantes au schéma Doctrine :
 
-    php bin/console doctrine:schema:update --dump-sql
     php bin/console doctrine:schema:update --force
 
 Enfin, ajoutez les fixtures :
