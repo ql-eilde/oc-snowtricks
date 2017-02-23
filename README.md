@@ -8,8 +8,6 @@ This is the public repository of my 6th project on OpenClassrooms. The goal of t
 
 1. Via Git, en clonant ce dépôt ;
 
-*Attention, il vous faudra changer de branche et passer de la branche master à dev.*
-
 ## 2. Définir les paramètres d'application
 Vous trouverez dans le répertoire `app/config/` le fichier `parameters.dist.yml`, renomez le (en supprimant le .dist) et modifiez le à votre convenance.
 
