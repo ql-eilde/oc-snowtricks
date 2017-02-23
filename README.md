@@ -17,8 +17,6 @@ Vous trouverez dans le répertoire `app/config/` le fichier `parameters.dist.yml
 Avec Composer bien évidemment :
 
     php composer.phar install
-    
-*Ne faites pas attention à l'exception qui va être levée concernant le fait qu'il n'y ai plus de fichier parameters.yml.dist*
 
 ## 4. Créez la base de données
 Si la base de données que vous avez renseignée dans l'étape 2 n'existe pas déjà, créez-la :
@@ -27,7 +25,6 @@ Si la base de données que vous avez renseignée dans l'étape 2 n'existe pas d�
 
 Puis créez les tables correspondantes au schéma Doctrine :
 
-    php bin/console doctrine:schema:update --dump-sql
     php bin/console doctrine:schema:update --force
 
 Enfin, ajoutez les fixtures :
@@ -52,4 +49,4 @@ Il faut ensuite lancer la commande qui va lire le fichier `src/ST/PlatformBundle
 
 *Attention, il est important de ne surtout pas modifier le fichier tricks.yml*   
 
-## Et voilà !
+## Et profitez !
