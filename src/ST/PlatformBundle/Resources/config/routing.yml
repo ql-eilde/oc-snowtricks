@@ -1,0 +1,25 @@
+st_platform_homepage:
+    path:     /
+    defaults: { _controller: STPlatformBundle:Trick:index }
+
+st_platform_view:
+    path: /trick/{slug}
+    defaults: { _controller: STPlatformBundle:Trick:view }
+    requirements:
+        slug: '[a-z0-9\-]+'
+
+st_platform_add:
+    path: /trick/add
+    defaults: { _controller: STPlatformBundle:Trick:add }
+
+st_platform_edit:
+    path: /trick/{slug}/edit
+    defaults: { _controller: STPlatformBundle:Trick:edit }
+    requirements:
+        slug: '[a-z0-9\-]+'
+
+st_platform_delete:
+    path: /trick/{slug}/delete
+    defaults: { _controller: STPlatformBundle:Trick:delete }
+    requirements:
+        slug: '[a-z0-9\-]+'

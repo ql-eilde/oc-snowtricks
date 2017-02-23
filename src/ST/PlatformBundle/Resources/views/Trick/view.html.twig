@@ -1,0 +1,154 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ trick.name }} - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <h1 class="text-center">{{ trick.name|capitalize }}</h1>
+    <table class="table">
+        <tr>
+            <td colspan="2" class="text-center">{{ trick.trickgroup.name }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p>Description :</p>
+                {{ trick.description }}
+            </td>
+        </tr>
+        {% if listImages == null %}
+            <tr>
+                <td>Aucune images</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                        {# Wrapper for slides #}
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img width="100%" src="{{ asset('uploads/trick_img/snowtricks.jpg') }}" alt="Snowtricks">
+                                <div class="carousel-caption">
+                                    <p style="color:black">Cliquez sur les flèches pour voir les images</p>
+                                </div>
+                            </div>
+                            {% for img in listImages %}
+                                {% if img.imageName != null %}
+                                    <div class="item">
+                                        <img width="100%" src="{{ asset(vich_uploader_asset(img, 'imageFile')) }}" alt="{{ img.imageName }}" />
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        {# Controls #}
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+        {% if listVideos == null %}
+            <tr>
+                <td>Aucune vidéos</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+                    <div id="carousel-example-generic-videos" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                        {# Wrapper for slides #}
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img width="100%" src="{{ asset('uploads/trick_img/default-video.jpg') }}" alt="Snowtricks">
+                                <div class="carousel-caption">
+                                    <p>Cliquez sur les flèches pour voir les vidéos</p>
+                                </div>
+                            </div>
+                            {% for vid in listVideos %}
+                                <div class="item">
+                                    {{ vid.embedCode|raw }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {# Controls #}
+                        <a class="left carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic-videos" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Espace de discussion</h2>
+        </div>
+        <div class="panel-body">
+            <div class="ajout-commentaire">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.content, "Ajouter un commentaire") }}
+                        {{ form_errors(form.content) }}
+                        {{ form_widget(form.content) }}
+                    </div>
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                {% endif %}
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th class="header-table-70">Commentaire</th>
+                        <th class="header-table-10">Photo</th>
+                        <th class="header-table-10">Auteur</th>
+                        <th class="header-table-10">Date</th>
+                    </tr>
+                    {% for com in pagination %}
+                        <tr>
+                            <td>{{ com.content }}</td>
+                            <td>
+                                {% if com.user.imageName == null %}
+                                    Pas de photo
+                                {% else %}
+                                    <img width="60px" src="{{ asset(vich_uploader_asset(com.user, 'imageFile')) }}" alt="{{ com.user.username }}" class="img-responsive img-thumbnail">
+                                {% endif %}
+                            </td>
+                            <td>{{ com.user.firstName }} {{ com.user.lastName }}</td>
+                            <td>{{ com.createdAt|date('d/m/Y') }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Pas de commentaires</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <a href="{{ path('st_platform_homepage') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+    </p>
+{% endblock %}

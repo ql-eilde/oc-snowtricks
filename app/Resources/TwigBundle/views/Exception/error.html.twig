@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block title  %}{{ status_code }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Bazinga !</h1>
+    <h2>Ceci est une erreur {{ status_code }} et a pour explication en anglais dans le texte :</h2>
+    <h3>{{ status_text }}</h3>
+    <br/>
+    <p>Maintenant que ca vous fais une belle jambe, il est temps de retrouver votre chemin.</p>
+    <a class="btn btn-default" href="{{ path('st_platform_homepage') }}" role="button">Retour E.T téléphone maison</a>
+{% endblock %}

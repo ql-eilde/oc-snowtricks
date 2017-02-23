@@ -1,0 +1,59 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <div class="jumbotron">
+        <h1>Bienvenue sur Snowtricks</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="{{ path('fos_user_registration_register') }}" role="button">Je m'inscris</a></p>
+    </div>
+
+    <h1 class="trick-list-title">Liste des tricks</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="list-group trick-list">
+                {% for trick in listTricks %}
+                    <li class="list-group-item text-center">
+                        <p class="text-left">
+                            <a class="trick-list-link trick-list-link-name" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">{{ trick.name }}</a>
+                        </p>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <button type="button" class="btn btn-info btn-sm">
+                                <a class="trick-list-link" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    Afficher
+                                </a>
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <a class="trick-list-link" href="{{ path('st_platform_edit', {'slug': trick.slug}) }}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Modifier
+                                </a>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <a class="trick-list-link" href="{{ path('st_platform_delete', {'slug': trick.slug}) }}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                    Supprimer
+                                </a>
+                            </button>
+                        {% else %}
+                            <button type="button" class="btn btn-info btn-sm">
+                                <a class="trick-list-link" href="{{ path('st_platform_view', {'slug': trick.slug}) }}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    Afficher
+                                </a>
+                            </button>
+                        {% endif %}
+                    </li>
+                {% else %}
+                    <a href="{{ path('st_platform_add') }}" class="list-group-item">
+                        <h2 class="list-group-item-heading">Pas de trick !</h2>
+                        <p class="list-group-item-text">Cliquez pour créer un trick !</p>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

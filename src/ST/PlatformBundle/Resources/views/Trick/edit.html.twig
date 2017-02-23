@@ -1,0 +1,21 @@
+{% extends "STPlatformBundle::layout.html.twig" %}
+
+{% block title %}Modifier un trick - {{ parent() }}{% endblock %}
+
+{% block stplatform_body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">Modifier : {{ trick.name }}</h1>
+        </div>
+        <div class="panel-body">
+            {{ include("STPlatformBundle:Trick:form.html.twig") }}
+        </div>
+    </div>
+
+    <p>
+        <a href="{{ path('st_platform_view', {'slug': trick.slug}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour au trick
+        </a>
+    </p>
+{% endblock %}
