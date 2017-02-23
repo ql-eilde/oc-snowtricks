@@ -8,15 +8,14 @@ This is the public repository of my 6th project on OpenClassrooms. The goal of t
 
 1. Via Git, en clonant ce dépôt ;
 
-## 2. Définir les paramètres d'application
-Vous trouverez dans le répertoire `app/config/` le fichier `parameters.dist.yml`, renomez le (en supprimant le .dist) et modifiez le à votre convenance.
-
-## 3. Télécharger les vendors
+## 2. Télécharger les vendors et définir les paramètres d'application
 Avec Composer bien évidemment :
 
     php composer.phar install
 
-## 4. Créez la base de données
+On vous demande à la fin de l'installation de définir les paramètres de l'application (connexion à la base de données), complétez les informations demandées et validez.
+
+## 3. Créez la base de données
 Si la base de données que vous avez renseignée dans l'étape 2 n'existe pas déjà, créez-la :
 
     php bin/console doctrine:database:create
@@ -29,12 +28,12 @@ Enfin, ajoutez les fixtures :
 
     php bin/console doctrine:fixtures:load
 
-## 5. Publiez les assets
+## 4. Publiez les assets
 Publiez les assets dans le répertoire web :
 
     php bin/console assets:install web
     
-## 6. Créez un user et lancez la commande de création de tricks
+## 5. Créez un user et lancez la commande de création de tricks
 Il va falloir créer un user admin, pour cela lancez la commande suivante :
 
     php bin/console fos:user:create
