@@ -1,16 +1,16 @@
 st_platform_homepage:
     path:     /
     defaults: { _controller: STPlatformBundle:Trick:index }
-
+    
+st_platform_add:
+    path: /trick/add
+    defaults: { _controller: STPlatformBundle:Trick:add }
+    
 st_platform_view:
     path: /trick/{slug}
     defaults: { _controller: STPlatformBundle:Trick:view }
     requirements:
         slug: '[a-z0-9\-]+'
-
-st_platform_add:
-    path: /trick/add
-    defaults: { _controller: STPlatformBundle:Trick:add }
 
 st_platform_edit:
     path: /trick/{slug}/edit
